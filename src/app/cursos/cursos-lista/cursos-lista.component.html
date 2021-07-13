@@ -4,7 +4,7 @@
     <button class="btn btn-primary">Novo Curso</button>
   </div>
 
-  <table class="table table-hover" *ngIf="cursos$ | async as cursos; else loading">
+  <table class="table table-hover" *ngIf="cursos$ | async as cursos; else loadingError">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -23,7 +23,12 @@
       </tr>
     </tbody>
   </table>
-  <ng-template #loading>
-    <span>Carregando cursos...</span>
+  <ng-template #loadingError>
+    <div *ngIf="error$ | async; else loading">
+      <p>Erro ao carregar a página. Contate o administrador.</p>
+    </div>
+    <ng-template #loading>
+      <span>Carregando cursos...</span>
+    </ng-template>
   </ng-template>
 </div>

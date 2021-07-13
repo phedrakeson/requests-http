@@ -1,10 +1,10 @@
 <div class="card">
   <div class="card-body d-flex justify-content-between">
     <h1 class="text-primary">Cursos</h1>
-    <button class="btn btn-primary">Novo Curso</button>
+    <button class="btn btn-primary" routerLink="novo">Novo Curso</button>
   </div>
 
-  <table class="table table-hover" *ngIf="cursos$ | async as cursos; else loadingError">
+  <table class="table table-hover" *ngIf="cursos$ | async as cursos; else loading">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -23,12 +23,7 @@
       </tr>
     </tbody>
   </table>
-  <ng-template #loadingError>
-    <div *ngIf="error$ | async; else loading">
-      <p>Erro ao carregar a página. Contate o administrador.</p>
-    </div>
-    <ng-template #loading>
-      <span>Carregando cursos...</span>
-    </ng-template>
+  <ng-template #loading>
+    <span>Carregando cursos...</span>
   </ng-template>
 </div>

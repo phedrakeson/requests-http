@@ -20,4 +20,10 @@ export class CursosService {
       delay(2000),
     );
   }
+
+  create(curso) {
+    return this.http.post(this.API, curso).pipe(
+      take(1)
+    )
+  }
 }

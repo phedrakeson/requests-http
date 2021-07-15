@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ThrowStmt } from '@angular/compiler';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { empty, Observable, Subject } from 'rxjs';
@@ -15,15 +16,20 @@ import { CursosService } from '../cursos.service';
 })
 export class CursosListaComponent implements OnInit {
 
+  @ViewChild('deleteModal') deleteModal;
+
   cursos$: Observable<Curso[]>;
   error$ = new Subject<boolean>();
   bsModalRef: BsModalRef
+  deleteModalRef: BsModalRef
+  selectedCourse: Curso;
 
   constructor(
     private service: CursosService,
     private alertModalService: AlertModalService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +52,22 @@ export class CursosListaComponent implements OnInit {
 
   onEdit(id) {
     this.router.navigate([`editar/${id}`], { relativeTo: this.route });
+  }
+
+  onDelete(curso) {
+    this.selectedCourse = curso;
+    this.deleteModalRef = this.modalService.show(this.deleteModal, { class: 'modal-sm' });
+  }
+
+  onConfirmDelete() {
+    this.service.remove(this.selectedCourse.id).subscribe(
+      success => window.location.reload(),
+      error => this.alertModalService.showAlertDanger(error)
+    );
+  }
+
+  onDeclineDelete() {
+    this.deleteModalRef.hide();
   }
 
 }

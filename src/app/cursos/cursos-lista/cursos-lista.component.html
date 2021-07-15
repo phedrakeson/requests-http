@@ -18,7 +18,7 @@
         <td>{{ curso.nome }}</td>
         <td class="d-flex justify-content-end">
           <button class="btn btn-outline-warning" (click)="onEdit(curso.id)">Editar</button>
-          <button class="btn btn-outline-danger">Remover</button>
+          <button class="btn btn-outline-danger" (click)="onDelete(curso)">Remover</button>
         </td>
       </tr>
     </tbody>
@@ -27,3 +27,11 @@
     <span>Carregando cursos...</span>
   </ng-template>
 </div>
+
+<ng-template #deleteModal>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja remover este curso?</p>
+    <button type="button" class="btn btn-default" (click)="onConfirmDelete()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="onDeclineDelete()">Não</button>
+  </div>
+</ng-template>

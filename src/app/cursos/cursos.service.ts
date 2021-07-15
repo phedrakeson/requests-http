@@ -32,4 +32,10 @@ export class CursosService {
       take(1)
     )
   }
+
+  update(curso) {
+    return this.http.put(`${this.API}/${curso.id}`, curso ).pipe(
+      take(1)
+    );
+  }
 }

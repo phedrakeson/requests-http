@@ -1,13 +1,11 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { EMPTY, empty, Observable, Subject } from 'rxjs';
 import { catchError, switchMap, take } from 'rxjs/operators';
 import { AlertModalService } from 'src/app/shared/alert-modal.service';
-import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
 import { Curso } from '../curso';
-import { CursosService } from '../cursos.service';
+import { Cursos2Service } from '../cursos2.service';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -25,7 +23,7 @@ export class CursosListaComponent implements OnInit {
   selectedCourse: Curso;
 
   constructor(
-    private service: CursosService,
+    private service: Cursos2Service,
     private alertModalService: AlertModalService,
     private router: Router,
     private route: ActivatedRoute,

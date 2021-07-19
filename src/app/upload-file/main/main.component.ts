@@ -1,3 +1,4 @@
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { UploadFileService } from '../upload-file.service';
@@ -9,6 +10,7 @@ import { UploadFileService } from '../upload-file.service';
 })
 export class MainComponent implements OnInit {
 
+  public progress: number = 0;
   public files: Set<File>;
   private subscriptions = [];
 
@@ -18,6 +20,7 @@ export class MainComponent implements OnInit {
   }
 
   onChange(event) {
+    this.progress = 0;
     const selectedFiles = <FileList>event.srcElement.files;
     this.files = new Set();
     for(let i = 0; i < selectedFiles.length; i++) {
@@ -30,7 +33,13 @@ export class MainComponent implements OnInit {
   onUpload() {
     if(this.files && this.files.size > 0) {
       const sub = this.service.upload(this.files, environment.BASE_URL + '/upload').subscribe(
-        res => console.log('upload concluido', res)
+        (event: HttpEvent<Object>) => {
+          if(event.type === HttpEventType.UploadProgress) {
+            const percentDone = Math.round((event.loaded) * 100 / event.total);
+            this.progress = percentDone;
+          }
+          if(event.type === HttpEventType.Response) console.log('Concluído');
+        }
       )
       this.subscriptions.push(sub) 
     }

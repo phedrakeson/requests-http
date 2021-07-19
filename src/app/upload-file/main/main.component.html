@@ -3,7 +3,13 @@
     <input type="file" class="form-control" id="inputGroupFile02" (change)="onChange($event)" multiple>
     <label class="input-group-text" for="inputGroupFile02">Upload</label>
   </div>
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" [style.width]="progress + '%'" aria-valuenow="progress"
+      aria-valuemin="0" aria-valuemax="100">{{ progress }}%</div>
+  </div>
   <div class="mt-2">
     <button class="btn btn-primary" (click)="onUpload()" [disabled]="!files">Enviar arquivo(s)</button>
   </div>
+
+
 </div>

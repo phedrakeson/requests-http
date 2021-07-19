@@ -12,4 +12,9 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onChange(event) {
+    const selectedFiles = <FileList>event.srcElement.files;
+    console.log(selectedFiles.item)
+  }
+
 }

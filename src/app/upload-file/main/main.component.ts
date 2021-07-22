@@ -54,6 +54,18 @@ export class MainComponent implements OnInit {
     }
   }
 
+  onDownloadPDF() {
+    this.service.download(environment.BASE_URL + '/downloadPDF' ).subscribe((res: any) => {
+      this.service.handleFile(res, 'report.pdf');
+    });
+  }
+
+  onDownloadExcel() {
+    this.service.download(environment.BASE_URL + '/downloadExcel').subscribe((res: any) => {
+      this.service.handleFile(res, 'report.xlsx');
+    });
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }

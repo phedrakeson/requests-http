@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "requests-http-a4a27"
+  },
+  "targets": {
+    "requests-http-a4a27": {
+      "hosting": {
+        "requests-http": [
+          "requests-http-a4a27"
+        ]
+      }
+    }
   }
 }
